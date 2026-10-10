@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -10,105 +9,107 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
-*{box-sizing:border-box}
-body{font-family:Poppins,sans-serif;margin:0;background:#f4f6fb;color:#222}
-header{background:#4f46e5;color:white;padding:15px;text-align:center}
-.container{max-width:1000px;margin:auto;padding:20px}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 5px 18px #0001;margin-bottom:20px}
-input,select{padding:9px;border:1px solid #ccc;border-radius:6px;width:100%;margin:3px 0;font-family:inherit}
-button{padding:9px 12px;border:0;border-radius:6px;background:#4f46e5;color:white;margin:3px;cursor:pointer;font-family:inherit}
-button:hover{background:#3730a3}
-.danger{background:#dc2626}
-.success{background:#15803d}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.product{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:12px;background:#f1f3f9;margin:8px 0;border-radius:8px}
-.product input,.product select{width:100px}
-.product-info{flex:1;min-width:120px}
-.total{font-size:22px;font-weight:600;margin:15px 0}
-.hidden{display:none}
-.small{font-size:12px;color:#666}
-.struk{width:230px;margin:auto;background:white;padding:10px;font:12px monospace;overflow-wrap:anywhere}
-.struk-item{display:flex;justify-content:space-between;gap:8px;margin:4px 0}
-.line{border-top:1px dashed black;margin:8px 0}
-.center{text-align:center}
-@media(max-width:600px){
-.container{padding:10px}.card{padding:14px}
-.price-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+body{font-family:Poppins;margin:0;background:#f4f6fb;}
+header{background:#4f46e5;color:white;padding:15px;text-align:center;}
+.container{max-width:900px;margin:auto;padding:20px;}
+
+.card{
+background:white;padding:20px;border-radius:12px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+margin-bottom:20px;
 }
+
+input{
+padding:6px;border-radius:6px;border:1px solid #ccc;
+margin:2px;
+}
+
+button{
+padding:6px 10px;border:none;border-radius:6px;
+background:#4f46e5;color:white;margin:2px;cursor:pointer;
+}
+
+.product{
+display:flex;justify-content:space-between;
+padding:8px;background:#f1f1f1;margin:5px 0;border-radius:8px;
+align-items:center;
+gap:5px;
+}
+
+.total{font-size:20px;font-weight:600;}
+.hidden{display:none;}
+
+/* STRUK */
+.struk{
+width:230px;margin:auto;background:white;
+padding:10px;font-family:monospace;font-size:12px;
+}
+.struk-item{display:flex;justify-content:space-between;}
+.line{border-top:1px dashed black;margin:8px 0;}
+.center{text-align:center;}
+
 @media print{
-@page{size:58mm auto;margin:0}
-body *{visibility:hidden}
-.struk,.struk *{visibility:visible}
-.struk{position:absolute;left:0;top:0;width:58mm;margin:0}
+@page{size:58mm auto;margin:0;}
+body *{visibility:hidden;}
+.struk,.struk *{visibility:visible;}
+.struk{position:absolute;left:0;top:0;width:58mm;}
 }
 </style>
 </head>
+
 <body>
 
-<header><h1>🏪 TOKO DEACA</h1></header>
+<header>
+<h1>🏪 TOKO DEACA</h1>
+</header>
 
 <div class="container" id="kasirPage">
 
 <div class="card">
-<h3>➕ Tambah Barang</h3>
-
-<label>Nama Barang</label>
-<input id="nama" placeholder="Contoh: Susu Cokelat">
-
-<h4>Harga Jual per Satuan (Rp)</h4>
-<p class="small">Isi harga untuk satuan yang tersedia. Harga tiap satuan bisa berbeda.</p>
-
-<div class="price-grid">
-<div><label>Pcs</label><input id="hargaPcs" type="number" min="0" placeholder="1500"></div>
-<div><label>Renteng</label><input id="hargaRenteng" type="number" min="0" placeholder="8000"></div>
-<div><label>Kg</label><input id="hargaKg" type="number" min="0" placeholder="18000"></div>
-<div><label>Sachet</label><input id="hargaSachet" type="number" min="0" placeholder="500"></div>
-<div><label>Dus</label><input id="hargaDus" type="number" min="0" placeholder="30000"></div>
-</div>
-
-<div class="form-grid">
-<div>
-<label>Jumlah Dibeli Customer</label>
-<input id="qty" type="number" min="0.01" step="any" value="1">
-</div>
-<div>
-<label>Satuan Jual</label>
-<select id="satuan">
-<option value="Pcs">Pcs</option>
-<option value="Renteng">Renteng</option>
-<option value="Kg">Kg</option>
-<option value="Sachet">Sachet</option>
-<option value="Dus">Dus</option>
-</select>
-</div>
-</div>
-
-<button onclick="tambah()">Tambah ke Keranjang</button>
+<h3>Tambah Barang</h3>
+<input id="nama" placeholder="Nama barang">
+<input id="harga" type="number" placeholder="Harga">
+<input id="qty" type="number" step="0.01" placeholder="Jumlah (boleh 0.25)">
+<button onclick="tambah()">Tambah</button>
 </div>
 
 <div class="card">
-<h3>🛒 Keranjang</h3>
+<h3>Keranjang</h3>
 <div id="list"></div>
+
 <div class="total">Total: Rp <span id="total">0</span></div>
+
+<br>
 <button onclick="buatStruk()">Struk</button>
-<button class="success" onclick="simpanTransaksi()">Simpan Transaksi</button>
+<button onclick="simpanTransaksi()">Simpan</button>
 <button onclick="lihatHistory()">History</button>
-<button class="danger" onclick="resetKeranjang()">Kosongkan</button>
-</div>
 </div>
 
+</div>
+
+<!-- STRUK -->
 <div id="strukPage" class="hidden">
 <div class="struk" id="areaStruk">
+
 <div class="center"><b>TOKO DEACA</b></div>
 <div class="center" id="tanggal"></div>
+
 <div class="line"></div>
 <div id="strukList"></div>
+
 <div class="line"></div>
-<div class="struk-item"><b>TOTAL</b><b>Rp <span id="strukTotal"></span></b></div>
+
+<div class="struk-item">
+<b>TOTAL</b>
+<b>Rp <span id="strukTotal"></span></b>
+</div>
+
 <div class="line"></div>
 <div class="center">Terima Kasih 🙏</div>
+
 </div>
+
+<br>
 <div class="center">
 <button onclick="window.print()">Print</button>
 <button onclick="downloadStruk()">PNG</button>
@@ -116,344 +117,205 @@ body *{visibility:hidden}
 </div>
 </div>
 
+<!-- HISTORY -->
 <div id="historyPage" class="hidden">
-<div class="container"><div class="card">
-<h3>📜 History Transaksi</h3>
+<div class="container">
+<div class="card">
+<h3>📜 History</h3>
 <div id="historyList"></div>
 <button onclick="kembali()">Kembali</button>
-</div></div>
+</div>
+</div>
 </div>
 
 <script>
-const SATUAN = ["Pcs","Renteng","Kg","Sachet","Dus"];
-let products = [];
-let total = 0;
 
-function formatRp(n){
-    return Math.round(n).toLocaleString("id-ID");
-}
+let total=0
+let products=[]
 
-function hitungTotal(){
-    total = products.reduce((sum,p) => sum + p.subtotal, 0);
-    document.getElementById("total").textContent = formatRp(total);
-}
-
-// TAMBAH BARANG
+// TAMBAH
 function tambah(){
-    const nama = document.getElementById("nama").value.trim();
-    const qtyText = document.getElementById("qty").value;
-    const qty = Number(qtyText);
-    const satuan = document.getElementById("satuan").value;
 
-    const harga = {
-        Pcs: document.getElementById("hargaPcs").value,
-        Renteng: document.getElementById("hargaRenteng").value,
-        Kg: document.getElementById("hargaKg").value,
-        Sachet: document.getElementById("hargaSachet").value,
-        Dus: document.getElementById("hargaDus").value
-    };
+let nama=document.getElementById("nama").value
+let harga=parseFloat(document.getElementById("harga").value)
+let qty=parseFloat(document.getElementById("qty").value)
 
-    if(!nama){
-        alert("Nama barang wajib diisi!");
-        return;
-    }
-
-    if(qtyText === "" || !Number.isFinite(qty) || qty <= 0){
-        alert("Jumlah harus lebih dari 0!");
-        return;
-    }
-
-    const hargaJual = {};
-
-    for(const s of SATUAN){
-        if(harga[s] !== ""){
-            const nilai = Number(harga[s]);
-
-            if(!Number.isFinite(nilai) || nilai < 0){
-                alert("Harga " + s + " tidak valid!");
-                return;
-            }
-
-            hargaJual[s] = nilai;
-        }
-    }
-
-    if(hargaJual[satuan] === undefined){
-        alert("Isi harga jual untuk satuan " + satuan + " terlebih dahulu!");
-        return;
-    }
-
-    products.push({
-        nama,
-        hargaJual,
-        qty,
-        satuan,
-        subtotal: Math.round(hargaJual[satuan] * qty)
-    });
-
-    hitungTotal();
-    updateKeranjang();
-
-    document.getElementById("nama").value = "";
-    document.getElementById("qty").value = "1";
-
-    SATUAN.forEach(s => {
-        const id = "harga" + s;
-        document.getElementById(id).value = "";
-    });
+if(!nama||!harga||!qty){
+alert("Isi semua")
+return
 }
 
-// TAMPILKAN KERANJANG
+let subtotal=Math.round(harga*qty)
+
+products.push({nama,harga,qty,subtotal})
+hitungTotal()
+updateKeranjang()
+
+document.getElementById("nama").value=""
+document.getElementById("harga").value=""
+document.getElementById("qty").value=""
+}
+
+// UPDATE
 function updateKeranjang(){
-    const list = document.getElementById("list");
-    list.innerHTML = "";
 
-    products.forEach((p,i) => {
-        const div = document.createElement("div");
-        div.className = "product";
+let list=document.getElementById("list")
+list.innerHTML=""
 
-        const info = document.createElement("div");
-        info.className = "product-info";
+products.forEach((p,i)=>{
 
-        const nama = document.createElement("b");
-        nama.textContent = p.nama;
+let div=document.createElement("div")
+div.className="product"
 
-        const hargaInfo = document.createElement("div");
-        hargaInfo.className = "small";
-        hargaInfo.textContent =
-            "Harga " + p.satuan + ": Rp " +
-            formatRp(p.hargaJual[p.satuan]);
+div.innerHTML=`
+<span>${p.nama}</span>
 
-        info.append(nama,hargaInfo);
+<input type="number" value="${p.qty}" step="0.01" style="width:60px"
+oninput="editItem(${i}, this.value, 'qty')">
 
-        const qty = document.createElement("input");
-        qty.type = "number";
-        qty.min = "0.01";
-        qty.step = "any";
-        qty.value = p.qty;
-        qty.title = "Jumlah";
-        qty.onchange = () => ubahJumlah(i,qty.value);
+<input type="number" value="${p.harga}" style="width:80px"
+oninput="editItem(${i}, this.value, 'harga')">
 
-        const satuan = document.createElement("select");
+<span>Rp ${p.subtotal.toLocaleString()}</span>
 
-        SATUAN.forEach(s => {
-            if(p.hargaJual[s] !== undefined){
-                const opt = document.createElement("option");
-                opt.value = s;
-                opt.textContent = s;
-                satuan.appendChild(opt);
-            }
-        });
+<button onclick="hapusItem(${i})">X</button>
+`
 
-        satuan.value = p.satuan;
-        satuan.onchange = () => ubahSatuan(i,satuan.value);
+list.appendChild(div)
 
-        const subtotal = document.createElement("b");
-        subtotal.textContent = "Rp " + formatRp(p.subtotal);
+})
 
-        const hapus = document.createElement("button");
-        hapus.className = "danger";
-        hapus.textContent = "Hapus";
-        hapus.onclick = () => hapusItem(i);
-
-        div.append(info,qty,satuan,subtotal,hapus);
-        list.appendChild(div);
-    });
-
-    hitungTotal();
+document.getElementById("total").innerText=total.toLocaleString()
 }
 
-// UBAH JUMLAH
-function ubahJumlah(i,val){
-    const qty = Number(val);
+// EDIT
+function editItem(i,val,type){
 
-    if(val === "" || !Number.isFinite(qty) || qty <= 0){
-        alert("Jumlah harus lebih dari 0!");
-        updateKeranjang();
-        return;
-    }
+if(val==="") return // biar bisa dihapus dulu
 
-    products[i].qty = qty;
-    hitungSubtotal(i);
+val=parseFloat(val)
+
+if(type==="qty") products[i].qty=val
+if(type==="harga") products[i].harga=val
+
+products[i].subtotal=Math.round(products[i].qty*products[i].harga)
+
+hitungTotal()
+updateKeranjang()
 }
 
-// UBAH SATUAN DAN HARGA OTOMATIS
-function ubahSatuan(i,satuan){
-    const p = products[i];
-
-    if(p.hargaJual[satuan] === undefined){
-        alert("Harga untuk satuan ini belum tersedia.");
-        updateKeranjang();
-        return;
-    }
-
-    p.satuan = satuan;
-    hitungSubtotal(i);
-}
-
-function hitungSubtotal(i){
-    const p = products[i];
-    p.subtotal = Math.round(p.qty * p.hargaJual[p.satuan]);
-    updateKeranjang();
-}
-
+// HAPUS
 function hapusItem(i){
-    products.splice(i,1);
-    updateKeranjang();
+products.splice(i,1)
+hitungTotal()
+updateKeranjang()
 }
 
-function resetKeranjang(){
-    if(!products.length) return;
-
-    if(confirm("Kosongkan semua barang?")){
-        products = [];
-        updateKeranjang();
-    }
+// HITUNG
+function hitungTotal(){
+total=0
+products.forEach(p=> total+=p.subtotal)
 }
 
-// BUAT STRUK
+// STRUK
 function buatStruk(){
-    if(!products.length){
-        alert("Keranjang masih kosong!");
-        return;
-    }
 
-    document.getElementById("kasirPage").classList.add("hidden");
-    document.getElementById("historyPage").classList.add("hidden");
-    document.getElementById("strukPage").classList.remove("hidden");
+document.getElementById("kasirPage").classList.add("hidden")
+document.getElementById("strukPage").classList.remove("hidden")
 
-    document.getElementById("tanggal").textContent =
-        new Date().toLocaleString("id-ID");
+let s=document.getElementById("strukList")
+s.innerHTML=""
 
-    const list = document.getElementById("strukList");
-    list.innerHTML = "";
+products.forEach(p=>{
+s.innerHTML+=`
+<div>${p.nama}</div>
+<div class="struk-item">
+<span>${p.qty} x ${p.harga.toLocaleString()}</span>
+<span>${p.subtotal.toLocaleString()}</span>
+</div>`
+})
 
-    products.forEach(p => {
-        const nama = document.createElement("div");
-        nama.textContent = p.nama;
-
-        const detail = document.createElement("div");
-        detail.className = "struk-item";
-
-        const kiri = document.createElement("span");
-        kiri.textContent = p.qty + " " + p.satuan +
-            " x " + formatRp(p.hargaJual[p.satuan]);
-
-        const kanan = document.createElement("span");
-        kanan.textContent = formatRp(p.subtotal);
-
-        detail.append(kiri,kanan);
-        list.append(nama,detail);
-    });
-
-    document.getElementById("strukTotal").textContent = formatRp(total);
+document.getElementById("strukTotal").innerText=total.toLocaleString()
+document.getElementById("tanggal").innerText=new Date().toLocaleString()
 }
 
-// DOWNLOAD PNG
+// PNG
 function downloadStruk(){
-    if(!window.html2canvas){
-        alert("Periksa koneksi internet untuk menggunakan fitur PNG.");
-        return;
-    }
-
-    html2canvas(document.getElementById("areaStruk")).then(canvas => {
-        const a = document.createElement("a");
-        a.href = canvas.toDataURL("image/png");
-        a.download = "struk-toko-deaca.png";
-        a.click();
-    });
+html2canvas(document.getElementById("areaStruk")).then(c=>{
+let a=document.createElement("a")
+a.href=c.toDataURL()
+a.download="struk.png"
+a.click()
+})
 }
 
-// SIMPAN TRANSAKSI
+// SIMPAN
 function simpanTransaksi(){
-    if(!products.length){
-        alert("Keranjang masih kosong!");
-        return;
-    }
-
-    const history = JSON.parse(localStorage.getItem("history")) || [];
-
-    history.push({
-        tanggal: new Date().toLocaleString("id-ID"),
-        items: products.map(p => JSON.parse(JSON.stringify(p))),
-        total
-    });
-
-    localStorage.setItem("history",JSON.stringify(history));
-    alert("Transaksi berhasil disimpan!");
+let h=JSON.parse(localStorage.getItem("history"))||[]
+h.push({tanggal:new Date().toLocaleString(),items:products,total})
+localStorage.setItem("history",JSON.stringify(h))
+alert("Tersimpan")
 }
 
 // HISTORY
 function lihatHistory(){
-    document.getElementById("kasirPage").classList.add("hidden");
-    document.getElementById("strukPage").classList.add("hidden");
-    document.getElementById("historyPage").classList.remove("hidden");
 
-    const history = JSON.parse(localStorage.getItem("history")) || [];
-    const list = document.getElementById("historyList");
-    list.innerHTML = "";
+document.getElementById("kasirPage").classList.add("hidden")
+document.getElementById("historyPage").classList.remove("hidden")
 
-    if(!history.length){
-        list.textContent = "Belum ada transaksi.";
-        return;
-    }
+let h=JSON.parse(localStorage.getItem("history"))||[]
+let list=document.getElementById("historyList")
+list.innerHTML=""
 
-    [...history].reverse().forEach((data,index) => {
-        const originalIndex = history.length - 1 - index;
+h.reverse().forEach((d,i)=>{
 
-        const div = document.createElement("div");
-        div.className = "product";
+let div=document.createElement("div")
+div.className="product"
 
-        const info = document.createElement("div");
-        info.className = "product-info";
+div.innerHTML=`
+<div>
+<b>${d.tanggal}</b><br>
+Rp ${d.total.toLocaleString()}
+</div>
+<button onclick="pakaiHistory(${i})">Pakai</button>
+`
 
-        const tanggal = document.createElement("b");
-        tanggal.textContent = data.tanggal;
+list.appendChild(div)
 
-        const nilai = document.createElement("div");
-        nilai.textContent = "Total: Rp " + formatRp(data.total);
-
-        const rincian = document.createElement("div");
-        rincian.className = "small";
-        rincian.textContent = data.items.map(p =>
-            p.nama + " (" + p.qty + " " + p.satuan + ")"
-        ).join(", ");
-
-        const pakai = document.createElement("button");
-        pakai.textContent = "Pakai Lagi";
-        pakai.onclick = () => pakaiHistory(originalIndex);
-
-        info.append(tanggal,nilai,rincian);
-        div.append(info,pakai);
-        list.appendChild(div);
-    });
+})
 }
 
-// PAKAI TRANSAKSI LAMA
+// PAKAI HISTORY (FIX TANPA POPUP)
 function pakaiHistory(i){
-    const history = JSON.parse(localStorage.getItem("history")) || [];
-    const data = history[i];
 
-    if(!data) return;
+let h=JSON.parse(localStorage.getItem("history"))||[]
+let data=h.reverse()[i]
 
-    products = data.items.map(p => ({
-        ...p,
-        hargaJual: p.hargaJual || {
-            [p.satuan]: Number(p.harga || 0)
-        },
-        qty: Number(p.qty),
-        subtotal: Number(p.subtotal)
-    }));
+products=[]
+total=0
 
-    updateKeranjang();
-    kembali();
+data.items.forEach(item=>{
+products.push({
+nama:item.nama,
+harga:parseFloat(item.harga),
+qty:parseFloat(item.qty),
+subtotal:Math.round(item.qty*item.harga)
+})
+})
+
+hitungTotal()
+updateKeranjang()
+kembali()
 }
 
+// KEMBALI
 function kembali(){
-    document.getElementById("kasirPage").classList.remove("hidden");
-    document.getElementById("strukPage").classList.add("hidden");
-    document.getElementById("historyPage").classList.add("hidden");
+document.getElementById("kasirPage").classList.remove("hidden")
+document.getElementById("strukPage").classList.add("hidden")
+document.getElementById("historyPage").classList.add("hidden")
 }
+
 </script>
+
 </body>
 </html>
